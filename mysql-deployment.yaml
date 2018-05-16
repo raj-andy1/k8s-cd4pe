@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: pfi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-deployment
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        args:
+          - "--ignore-db-dir=lost+found"
+        ports:
+        - name: http-port
+          containerPort: 3306
+        volumeMounts:
+        - mountPath: "/var/lib/mysql"
+          name: mysql-volumemount
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_ROOT_PASSWORD
+              name: mysql-pfi-backend-config
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_USER
+              name: mysql-pfi-backend-config
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_PASSWORD
+              name: mysql-pfi-backend-config
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_DATABASE
+              name: mysql-pfi-backend-config
+      volumes:
+        - gcePersistentDisk:
+            fsType: ext4
+            pdName: pipelines-pfi-mysql
+          name: mysql-volumemount

@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  MYSQL_DATABASE: pfi
+  MYSQL_PASSWORD: p@ssW0rd!
+  MYSQL_ROOT_PASSWORD: p@ssW0rd!
+  MYSQL_USER: pfi
+kind: ConfigMap
+metadata:
+  labels:
+    app: mysql-deployment
+  name: mysql-pfi-backend-config
+  namespace: pfi

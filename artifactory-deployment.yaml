@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: artifactory-deployment
+  namespace: pfi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: artifactory-deployment
+    spec:
+      containers:
+      - name: artifactory-oss
+        image: docker.bintray.io/jfrog/artifactory-oss:5.8.3
+        ports:
+        - name: http-port
+          containerPort: 8081
+        volumeMounts:
+          - mountPath: /var/opt/jfrog/artifactory
+            name: artifactory-volumemount
+      volumes:
+        - gcePersistentDisk:
+            fsType: ext4
+            pdName: pipelines-pfi-artifactory
+          name: artifactory-volumemount

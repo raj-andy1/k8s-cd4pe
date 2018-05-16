@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  DB_ENDPOINT: mysql://mysql-service:3306/pfi
+  DB_PASS: p@ssW0rd!
+  DB_USER: pfi
+kind: ConfigMap
+metadata:
+  labels:
+    app: pfi
+  name: pfi-frontend-config
+  namespace: pfi

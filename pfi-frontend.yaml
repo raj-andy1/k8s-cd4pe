@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pfi-deployment
+  namespace: pfi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pfi
+    spec:
+      containers:
+      - name: pfi
+        image: pcr-internal.puppet.net/pipelines/pfi:latest
+        ports:
+        - containerPort: 7000
+          hostPort: 7000
+          protocol: TCP
+        - containerPort: 8080
+          hostPort: 8080
+          protocol: TCP
+        - containerPort: 8000
+          hostPort: 8000
+          protocol: TCP
+        env:
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              key: DB_USER
+              name: pfi-frontend-config
+        - name: DB_PASS
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PASS
+              name: pfi-frontend-config
+        - name: DB_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              key: DB_ENDPOINT
+              name: pfi-frontend-config
+        - name: PFI_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: pfi-secret
+              key: secretkey
