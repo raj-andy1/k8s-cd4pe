@@ -1,18 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: pfi-deployment
-  namespace: pfi
+  name: cd4pe-deployment
+  namespace: cd4pe
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: pfi
+        app: cd4pe
     spec:
       containers:
-      - name: pfi
-        image: pcr-internal.puppet.net/pipelines/pfi:latest
+      - name: cd4pe
+        image: pcr-internal.puppet.net/pipelines/cd4pe:latest
         ports:
         - containerPort: 7000
           hostPort: 7000
@@ -28,19 +28,19 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: DB_USER
-              name: pfi-frontend-config
+              name: cd4pe-frontend-config
         - name: DB_PASS
           valueFrom:
             configMapKeyRef:
               key: DB_PASS
-              name: pfi-frontend-config
+              name: cd4pe-frontend-config
         - name: DB_ENDPOINT
           valueFrom:
             configMapKeyRef:
               key: DB_ENDPOINT
-              name: pfi-frontend-config
-        - name: PFI_SECRET_KEY
+              name: cd4pe-frontend-config
+        - name: cd4pe_SECRET_KEY
           valueFrom:
             secretKeyRef:
-              name: pfi-secret
+              name: cd4pe-secret
               key: secretkey

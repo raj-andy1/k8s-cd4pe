@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: artifactory-deployment
-  namespace: pfi
+  namespace: cd4pe
 spec:
   replicas: 1
   template:
@@ -22,5 +22,5 @@ spec:
       volumes:
         - gcePersistentDisk:
             fsType: ext4
-            pdName: pipelines-pfi-artifactory
+            pdName: pipelines-cd4pe-artifactory
           name: artifactory-volumemount
