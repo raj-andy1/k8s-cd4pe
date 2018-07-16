@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: cd4pe
-        image: pcr-internal.puppet.net/pipelines/cd4pe:latest
+        image: puppet/continuous-delivery-for-puppet-enterprise
         ports:
         - containerPort: 7000
           hostPort: 7000
