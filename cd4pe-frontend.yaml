@@ -39,7 +39,7 @@ spec:
             configMapKeyRef:
               key: DB_ENDPOINT
               name: cd4pe-frontend-config
-        - name: cd4pe_SECRET_KEY
+        - name: PFI_SECRET_KEY
           valueFrom:
             secretKeyRef:
               name: cd4pe-secret
